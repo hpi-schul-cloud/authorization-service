@@ -19,8 +19,22 @@ $ npm install
 ## Start the Database
 
 ```bash
+## start docker containers
 $ docker-compose up -f ./docker-compose.local.yml
 ```
+
+This will start a postgres db and a pgadmin instance.
+If there is no data folder, the db will be initialized with the schema in db/seed and a default user `POSTGRES`.
+
+You can access the pgadmin at `http://localhost:8080`.
+
+![pgadmin](./docs/pgadmin.png)
+
+Add a new server in the UI.
+Once connected you have access to the database and can run queries.
+
+![pgadminsettings](./docs/pgsettings.png)
+
 
 
 ## Running the app
@@ -48,17 +62,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
