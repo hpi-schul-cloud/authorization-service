@@ -1,5 +1,5 @@
 INSERT INTO roles (name, permissions) VALUES
-    ('Board Reader', ARRAY['BOARD_NODE_READ', 'FILESTORAGE_READ']::bkg_permission[]),
+    ('Board Reader', ARRAY['BOARD_NODE_READ', 'FILESTORAGE_READ']::PERMISSION[]),
     ('Board Owner', ARRAY[
         'BOARD_TREE_DELETE',
         'BOARD_NODE_CREATE',
@@ -13,7 +13,7 @@ INSERT INTO roles (name, permissions) VALUES
         'FILESTORAGE_READ',
         'FILESTORAGE_UPDATE',
         'FILESTORAGE_DELETE'
-    ]::bkg_permission[]),
+    ]::PERMISSION[]),
     ('Board Editor', ARRAY[
         'BOARD_NODE_CREATE',
         'BOARD_NODE_READ',
@@ -26,4 +26,4 @@ INSERT INTO roles (name, permissions) VALUES
         'FILESTORAGE_READ',
         'FILESTORAGE_UPDATE',
         'FILESTORAGE_DELETE'
-    ]::bkg_permission[]);
+    ]::PERMISSION[]);
