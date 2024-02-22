@@ -1,8 +1,8 @@
 -- Type: bkg_permission
 
--- DROP TYPE IF EXISTS public.bkg_permission;
+-- DROP TYPE IF EXISTS public.PERMISSION;
 
-CREATE TYPE public.bkg_permission AS ENUM
+CREATE TYPE public.PERMISSION AS ENUM
     (
         'BOARD_TREE_CREATE',
         'BOARD_TREE_DELETE',
@@ -19,9 +19,9 @@ CREATE TYPE public.bkg_permission AS ENUM
         'FILESTORAGE_DELETE'
     );
 
-ALTER TYPE public.bkg_permission
+ALTER TYPE public.PERMISSION
     OWNER TO postgres;
 
-COMMENT ON TYPE public.bkg_permission
+COMMENT ON TYPE public.PERMISSION
     IS 'Every permission must be stored as a enum.
 The roles table can apply additional constraints which PERMISSION enums are allowed for their use case.';
