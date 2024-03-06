@@ -34,20 +34,23 @@ dockerize -timeout 240s -wait tcp://$HOST:$PORT
 echo
 
 echo "Running tests: $TESTS"
-# install pgtap
+# Install pgtap
 PGPASSWORD=$PASSWORD psql -q -h $HOST -p $PORT -d $DATABASE -U $USER -f /pgtap/sql/pgtap.sql
-# > /dev/null 2>&1
 
-rc=$?
-# exit if pgtap failed to install
-if [[ $rc != 0 ]] ; then
+# Check if pgtap installed successfully
+if [ $? -ne 0 ]; then
   echo "pgTap was not installed properly. Unable to run tests!"
-  exit $rc
+  exit 1
+else
+  echo "pgTap was installed successfully."
 fi
-# run the tests
+
+# Run the tests
 PGPASSWORD=$PASSWORD pg_prove -h $HOST -p $PORT -d $DATABASE -U $USER $TESTS
 rc=$?
-# uninstall pgtap
+
+# Uninstall pgtap
 PGPASSWORD=$PASSWORD psql -q -h $HOST -p $PORT -d $DATABASE -U $USER -f /pgtap/sql/uninstall_pgtap.sql > /dev/null 2>&1
-# exit with return code of the tests
+
+# Exit with return code of the tests
 exit $rc
