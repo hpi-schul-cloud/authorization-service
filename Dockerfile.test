@@ -17,6 +17,8 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.8/main'>> /etc/apk/repositorie
 WORKDIR /
 
 COPY test/unit/*.sql /test/
+COPY test/test.sh /test/
+RUN chmod ugo+x /test/test.sh
 
 CMD ["postgres"]
 
