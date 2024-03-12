@@ -5,6 +5,7 @@ services:
 
   db:
     image: postgres:16.1
+    container_name: postgres_db
     restart: always
     environment:
       POSTGRES_PASSWORD: example
@@ -17,6 +18,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:latest
+    container_name: postgres_admin
     environment:
       PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_DEFAULT_EMAIL: user@domain.com

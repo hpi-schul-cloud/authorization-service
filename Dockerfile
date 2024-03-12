@@ -7,29 +7,14 @@ ENV DOCKERIZE_VERSION=v0.6.1
 
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.8/main'>> /etc/apk/repositories \
     && echo 'http://dl-cdn.alpinelinux.org/alpine/v3.6/main'>> /etc/apk/repositories \
-    && apk add --no-cache --update curl wget git openssl \
-    build-base make perl perl-dev \
-    && wget -O /tmp/dockerize.tar.gz https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-${DOCKERIZE_VERSION}.tar.gz \
-    && tar -C /usr/local/bin -xzvf /tmp/dockerize.tar.gz \
-    && rm -rf /var/cache/apk/* /tmp/*
-
-# install pg_prove
-RUN cpan TAP::Parser::SourceHandler::pgTAP
-
-# install pgtap
-
-RUN git clone https://github.com/theory/pgtap.git \
+    && apk add --no-cache --update curl wget git openssl build-base make perl perl-dev \
+    && rm -rf /var/cache/apk/* /tmp/* \
+    && cpan TAP::Parser::SourceHandler::pgTAP \
+    && git clone https://github.com/theory/pgtap.git \
     && cd pgtap && git checkout tags/$PGTAP_VERSION \
     && make
 
 WORKDIR /
-
-ENV DATABASE="postgres" \
-    HOST=localhost \
-    PORT=5432 \
-    USER="postgres" \
-    PASSWORD="example" \
-    TESTS="/test/*.sql"
 
 COPY test/unit/*.sql /test/
 
