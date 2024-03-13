@@ -31,9 +31,15 @@ do
   esac
 done
 
-echo "Waiting for database..."
-dockerize -timeout 240s -wait tcp://$HOST:$PORT
-echo
+
+echo "Checking if posgresql is ready..."
+until pg_isready -h $HOST -p $PORT -d $DATABASE -U $USER
+do
+  echo "Waiting for database..."
+  sleep 1
+done
+echo "Postresql is ready"
+
 
 echo "Running tests: $TESTS"
 # Install pgtap
