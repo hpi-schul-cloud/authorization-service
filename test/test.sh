@@ -31,10 +31,16 @@ do
   esac
 done
 
-
-echo "Checking if posgresql is ready..."
+TIMEOUT=60
+INTERVAL=1
+echo "Checking if PostgreSQL is ready..."
 until pg_isready -h $HOST -p $PORT -d $DATABASE -U $USER
 do
+  TIMEOUT=$((TIMEOUT - INTERVAL))
+  if [ $TIMEOUT -eq 0 ]; then
+    echo "Timed out waiting for PostgreSQL to be ready"
+    exit 1
+  fi
   echo "Waiting for database..."
   sleep 1
 done
