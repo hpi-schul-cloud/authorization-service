@@ -15,10 +15,8 @@ RUN apk add --no-cache --update curl wget git openssl build-base make perl perl-
 
 WORKDIR /
 
-COPY test/unit/*.sql /test/
+COPY run-pg-and-pgtap-test.sh test/test.sh test/unit/*.sql /test/
 COPY db/seed/*.sql /seed/
-COPY test/test.sh /test/
-COPY run-pg-and-pgtap-test.sh /test/run-pg-and-pgtap-test.sh
 
 USER postgres
 
